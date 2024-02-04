@@ -9,15 +9,18 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.3.11",
     "axios": "^1.6.0",
-    "particles.js": "^2.0.0"
+    "element-plus": "^2.5.5",
+    "particles.js": "^2.0.0",
+    "vue": "^3.3.11"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.5.2",
     "sass": "1.41.1",
     "sass-loader": "^12.1.0",
-    "vue-particles": "^1.0.9",
-    "vite": "^5.0.8"
+    "unplugin-auto-import": "^0.17.5",
+    "unplugin-vue-components": "^0.26.0",
+    "vite": "^5.0.8",
+    "vue-particles": "^1.0.9"
   }
 }

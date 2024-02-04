@@ -8,12 +8,11 @@
         欢迎来到luofcmax的图片集
       </div>
     </div>
+    <travelOverview />
   </div>
-  <!-- <Album /> -->
 </template>
 
 <script setup>
-// import HelloWorld from './components/HelloWorld.vue'
 </script>
 <style scoped>
 .main {
@@ -28,7 +27,7 @@
 
 .header-img {
   position: absolute;
-  top: 50%;
+  top: 25%;
   left: 50%;
   color: #FFFFFF;
   transform: translate(-50%, -300px);
@@ -52,7 +51,7 @@
 
 .header-text {
   position: absolute;
-  top: 50%;
+  top: 25%;
   left: 50%;
   color: #FFFFFF;
   transform: translate(-50%, -150px);
