@@ -9,7 +9,7 @@ const { defaultApiUrl, systemIdEncode } = config
 
 const ENV = import.meta.env
 
-const systemId = ENV.VITE_GLOB_APP_ID
+// const systemId = ENV.VITE_GLOB_APP_ID
 
 interface Config extends AxiosRequestConfig {
   serverName?: string
@@ -72,17 +72,13 @@ service.interceptors.response.use(
 
     const res = response.data
 
-    const code = res.code
+    const status = res.status
     // console.log('code', code)
     // n8n请求返回
     // if (!code) return res
-    switch (code) {
-      case 0: {
+    switch (status) {
+      case true: {
         return res.data || res
-      }
-      case 500: {
-        // ElMessage.warning(res.message)
-        return res.data
       }
       default: {
         // ElMessage.error(res.message)
@@ -91,9 +87,6 @@ service.interceptors.response.use(
     }
   },
   (error) => {
-    if (error.config.headers.showLoading !== false) {
-      // hideLoading()
-    }
     console.log('err' + error) // for debug
     // ElMessage({
     //   message: error.message || 'error',

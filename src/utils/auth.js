@@ -7,7 +7,7 @@
 
 export function getToken() {
   // return Cookies.get(TokenKey)
-  return 'Bearer 2|UzaR79tXZmGSFhqpDjiSXJouyOY3sMpoMPqXIr5L'
+  return import.meta.env.VITE_API_TOKEN
 }
 
 // export function getUserInfo() {
