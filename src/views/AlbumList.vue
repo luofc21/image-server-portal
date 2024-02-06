@@ -1,144 +1,146 @@
 <template>
-    <div class="album-list-wrap">
-      <div class="img-wrap" v-for="(item, index) in albumList" :key="`albumList-${index}`" @click="handleAblumClick(item)">
-        <el-image :src="item.cover" fit="cover" loading="lazy">
-          <div class="image-slot" slot="error">
-            <i class="el-icon-picture-outline"></i>
-          </div>
-          <div class="loading-image-slot" slot="placeholder">
-            <i class="el-icon-loading"></i>
-          </div>
-        </el-image>
-        <p><span>“</span>{{ item.name }}<span>”</span></p>
-      </div>
+  <div class="album-list-wrap">
+    <div class="img-wrap" v-for="(item, index) in albumList" :key="`albumList-${index}`" @click="handleAblumClick(item)">
+      <el-image :src="item.cover" fit="cover" loading="lazy">
+        <div class="image-slot" slot="error">
+          <i class="el-icon-picture-outline"></i>
+        </div>
+        <div class="loading-image-slot" slot="placeholder">
+          <i class="el-icon-loading"></i>
+        </div>
+      </el-image>
+      <p><span>“</span>{{ item.name }}<span>”</span></p>
     </div>
-  </template>
+  </div>
+</template>
   
-  <script setup>
-  import { onMounted, ref } from 'vue'
-  import { useRouter } from 'vue-router'
-  import { albums, images } from '@/api/lsky-pro.js'
-  const albumList = ref([])
-  // 获取相册列列表
-  const getAlbums = async () => {
-    const res = await albums({
-      page: '',
-      order: '',
-      keyword: ''
-    })
-    albumList.value = res.data
-    albumList.value.forEach(async (item) => {
-      const cover = await getAlbumCover(item.id)
-      item.cover = cover
-    })
-  }
-  // 获取相册封面图
-  const getAlbumCover = async (id) => {
-    const res = await images({
-      album_id: id
-    })
-    const links = res.data[0]?.links
-    return links?.url || ''
-  }
-  // 点击相册
-  const router = useRouter()
-  const handleAblumClick = (album) => {
-    console.log('handleAblumClick===>', album);
-    router.push({
-      name: 'AlbumDetail',
-      query: {
-        id: album.id,
-        name: album.name
-      }
-    })
-  }
-  
-  onMounted(() => {
-    getAlbums()
+<script setup>
+import { onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { albums, images } from '@/api/lsky-pro.js'
+import { useAlbumStore } from '@/store/index'
+const albumStore = useAlbumStore()
+const albumList = ref([])
+// 获取相册列列表
+const getAlbums = async () => {
+  const res = await albums({
+    page: '',
+    order: '',
+    keyword: ''
   })
-  </script>
+  albumList.value = res.data
+  albumStore.setAlbums(res.data)
+  albumList.value.forEach(async (item) => {
+    const cover = await getAlbumCover(item.id)
+    item.cover = cover
+  })
+}
+// 获取相册封面图
+const getAlbumCover = async (id) => {
+  const res = await images({
+    album_id: id
+  })
+  const links = res.data[0]?.links
+  return links?.url || ''
+}
+// 点击相册
+const router = useRouter()
+const handleAblumClick = (album) => {
+  console.log('handleAblumClick===>', album);
+  router.push({
+    name: 'AlbumDetail',
+    query: {
+      id: album.id
+    }
+  })
+}
+
+onMounted(() => {
+  getAlbums()
+})
+</script>
   
-  <style scoped lang="scss">
-  .album-list-wrap {
-    max-width: 1320px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
-  
-    .img-wrap {
-      width: 320px;
-      height: 200px;
-      position: relative;
-  
-      :deep(.el-image) {
+<style scoped lang="scss">
+.album-list-wrap {
+  max-width: 1320px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  .img-wrap {
+    width: 320px;
+    height: 200px;
+    position: relative;
+
+    :deep(.el-image) {
+      width: 100%;
+      height: 100%;
+
+      .image-slot,
+      .loading-image-slot {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         width: 100%;
         height: 100%;
-  
-        .image-slot,
-        .loading-image-slot {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 100%;
-          height: 100%;
-          background: #f5f7fa;
-        }
-  
-        &::after {
-          content: '';
-          display: block;
-          width: 100%;
-          height: 100%;
-          position: absolute;
-          top: 0;
-          left: 0;
-          background: #000;
-          opacity: 0.2;
-        }
-  
-        img {
-          transition: all 0.3s ease-out;
-        }
+        background: #f5f7fa;
       }
-  
-      p {
+
+      &::after {
+        content: '';
+        display: block;
         width: 100%;
+        height: 100%;
         position: absolute;
-        top: 50%;
-        transform: translateY(-80%);
-        text-align: center;
-        color: #fff;
-        font-size: 36px;
-        font-family: NotoSansHans-Black;
-        text-indent: 16px;
-        letter-spacing: 16px;
-  
-        span {
-          font-size: 24px;
-        }
+        top: 0;
+        left: 0;
+        background: #000;
+        opacity: 0.2;
       }
-  
-      &:hover {
-        :deep(.el-image) {
-          img {
-            transform: scale(1.1);
-          }
+
+      img {
+        transition: all 0.3s ease-out;
+      }
+    }
+
+    p {
+      width: 100%;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-80%);
+      text-align: center;
+      color: #fff;
+      font-size: 36px;
+      font-family: NotoSansHans-Black;
+      text-indent: 16px;
+      letter-spacing: 16px;
+
+      span {
+        font-size: 24px;
+      }
+    }
+
+    &:hover {
+      :deep(.el-image) {
+        img {
+          transform: scale(1.1);
         }
       }
     }
   }
-  
-  @media screen and (max-width: 768px) {
-    .album-list-wrap {
-      .img-wrap {
-        width: 400px;
-        height: 200px;
-      }
+}
+
+@media screen and (max-width: 768px) {
+  .album-list-wrap {
+    .img-wrap {
+      width: 400px;
+      height: 200px;
     }
   }
-  </style>
+}
+</style>
 
 <style scoped>
 .main {

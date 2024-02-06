@@ -1,12 +1,12 @@
 <template>
   <div class="main">
     <div class="header-img">
-      <img alt="" src="./assets/WeChatAvatar.jpg" />
+      <img alt="" src="../assets/WeChatAvatar.jpg" />
     </div>
     <div class="header-text">
-      <!-- <div class="glitch">
-        欢迎来到luofcmax的图片集
-      </div> -->
+      <div class="glitch">
+        欢迎来到小抄的图片集
+      </div>
     </div>
     <AlbumList />
   </div>
@@ -19,22 +19,24 @@ import AlbumList from './AlbumList.vue'
 .main {
   width: 100%;
   height: 100%;
-  margin-top: ;
+  margin-top: 20px;
   background: #FFFFFF;
   /* background-image: url("./images/DSC_7274.JPG"); */
   /* background-size: cover; */
   /* background-repeat: no-repeat; */
   overflow: hidden;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .header-img {
-  position: absolute;
+  /* position: absolute;
   top: 25%;
-  left: 50%;
+  left: 50%; */
   color: #FFFFFF;
-  transform: translate(-50%, -300px);
+  /* transform: translate(-50%, -300px); */
 
 }
 
@@ -54,22 +56,22 @@ import AlbumList from './AlbumList.vue'
 }
 
 .header-text {
-  position: absolute;
+  /* position: absolute;
   top: 25%;
-  left: 50%;
-  color: #FFFFFF;
-  transform: translate(-50%, -150px);
+  left: 50%; */
+  margin: 10px 0 20px 0;
+  /* transform: translate(-50%, -150px); */
 }
 
 .glitch {
-  font-family: 'Ubuntu', sans-serif;
-  position: relative;
-  color: #5251516f;
-  mix-blend-mode: lighten;
-  margin: auto;
+  /* font-family: 'Ubuntu', sans-serif; */
+  /* position: relative; */
+  color: #332c2c;
+  /* mix-blend-mode: lighten; */
+  /* margin: auto; */
   font-size: 40px;
-  text-transform: uppercase;
-  font-weight: bold;
+  /* text-transform: uppercase; */
+  /* font-weight: bold; */
 }
 
 .glitch:before,
