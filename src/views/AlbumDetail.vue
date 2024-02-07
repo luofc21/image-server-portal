@@ -13,11 +13,14 @@
             </div>
         </div>
         <div class="album-detail__content">
-            <span v-if="albumInfo?.intro">"{{ albumInfo?.intro || '' }}"</span>
-            <div class="img-wrap" v-for="(item, index) in imageList" :key="`imageList-${index}`">
-                <el-image :src="item" :preview-src-list="imageList" fit="cover" :initial-index="index"
-                    class="album-detail__content__image" />
+            <span class="album-intro" v-if="albumInfo?.intro">“{{ albumInfo?.intro || '' }}”</span>
+            <div class="img-list">
+                <div class="img-wrap" v-for="(item, index) in imageList" :key="`imageList-${index}`">
+                    <el-image :src="item" :preview-src-list="imageList" fit="cover" :initial-index="index"
+                        class="album-detail__content__image" />
+                </div>
             </div>
+
         </div>
     </div>
 </template>
@@ -82,9 +85,12 @@ onMounted(() => {
         display: flex;
         justify-content: flex-start;
         align-items: center;
+        cursor: pointer;
+        margin-right: 10px;
     }
 
     .album-detail__header__title {
+        pointer-events: none;
         font-size: 24px;
 
         .divider {
@@ -97,10 +103,23 @@ onMounted(() => {
     width: 100%;
     height: calc(100% - 64px);
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     justify-content: flex-start;
-    align-items: flex-start;
-    gap: 10px;
+    align-items: center;
+
+    .album-intro {
+        font-size: 24px;
+        margin: 10px 0;
+    }
+
+    .img-list {
+        align-self: flex-start;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 10px;
+    }
 
     .img-wrap {
         width: 320px;

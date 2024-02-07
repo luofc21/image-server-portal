@@ -9,7 +9,7 @@
           <i class="el-icon-loading"></i>
         </div>
       </el-image>
-      <p><span>“</span>{{ item.name }}<span>”</span></p>
+      <p class="album-name"><span>“</span>{{ item.name }}<span>”</span></p>
     </div>
   </div>
 </template>
@@ -116,6 +116,7 @@ onMounted(() => {
       font-family: NotoSansHans-Black;
       text-indent: 16px;
       letter-spacing: 16px;
+      pointer-events: none; // 取消图片集名字的点击事件
 
       span {
         font-size: 24px;
